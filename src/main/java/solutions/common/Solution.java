@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public class Solution {
+public abstract class Solution {
 
   private final Logger log = Logger.getLogger(Solution.class.getName());
+
+  public abstract SolutionAnswer run();
 
   public char[][] getFileAs2dCharArray(String pathToFile) {
     List<String> fileLines = new ArrayList<>();
