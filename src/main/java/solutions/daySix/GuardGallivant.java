@@ -88,12 +88,12 @@ public class GuardGallivant extends Solution {
 
   private void headUp(char[][] labGrid) {
     do {
+      labGrid[currentX][currentY] = 'D';
 
       if (labGrid[currentX - 1][currentY] != 'D') {
         visited++;
       }
 
-      labGrid[currentX][currentY] = 'D';
       labGrid[currentX - 1][currentY] = GUARD_UP;
       currentX--;
 
@@ -109,12 +109,12 @@ public class GuardGallivant extends Solution {
 
   private void headRight(char[][] labGrid) {
     do {
+      labGrid[currentX][currentY] = 'D';
 
       if (labGrid[currentX][currentY + 1] != 'D') {
         visited++;
       }
 
-      labGrid[currentX][currentY] = 'D';
       labGrid[currentX][currentY + 1] = GUARD_RIGHT;
       currentY++;
 
@@ -129,12 +129,12 @@ public class GuardGallivant extends Solution {
 
   private void headDown(char[][] labGrid) {
     do {
+      labGrid[currentX][currentY] = 'D';
 
       if (labGrid[currentX + 1][currentY] != 'D') {
         visited++;
       }
 
-      labGrid[currentX][currentY] = 'D';
       labGrid[currentX + 1][currentY] = GUARD_DOWN;
       currentX++;
 
@@ -149,12 +149,12 @@ public class GuardGallivant extends Solution {
 
   private void headLeft(char[][] labGrid) {
     do {
+      labGrid[currentX][currentY] = 'D';
 
       if (labGrid[currentX][currentY - 1] != 'D') {
         visited++;
       }
 
-      labGrid[currentX][currentY] = 'D';
       labGrid[currentX][currentY - 1] = GUARD_LEFT;
       currentY--;
 
