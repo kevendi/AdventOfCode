@@ -15,6 +15,7 @@ public class GuardGallivant extends Solution {
   private static final char GUARD_LEFT = '<';
   private static final char GUARD_DOWN = 'v';
   private static final char OBSTACLE = '#';
+  private static final char DISCOVERED = 'D';
 
   private static final Logger logger = Logger.getLogger(GuardGallivant.class.getName());
 
@@ -79,7 +80,7 @@ public class GuardGallivant extends Solution {
     }
 
     if (currentY == 0) {
-      labGrid[currentX][currentY] = 'D';
+      labGrid[currentX][currentY] = DISCOVERED;
       return visited;
     }
 
@@ -88,9 +89,9 @@ public class GuardGallivant extends Solution {
 
   private void headUp(char[][] labGrid) {
     do {
-      labGrid[currentX][currentY] = 'D';
+      labGrid[currentX][currentY] = DISCOVERED;
 
-      if (labGrid[currentX - 1][currentY] != 'D') {
+      if (labGrid[currentX - 1][currentY] != DISCOVERED) {
         visited++;
       }
 
@@ -98,20 +99,20 @@ public class GuardGallivant extends Solution {
       currentX--;
 
       if (currentX == 0) {
-        labGrid[currentX][currentY] = 'D';
+        labGrid[currentX][currentY] = DISCOVERED;
         break;
       }
 
-    } while (labGrid[currentX - 1][currentY] == '.' || labGrid[currentX - 1][currentY] == 'D');
+    } while (labGrid[currentX - 1][currentY] == '.' || labGrid[currentX - 1][currentY] == DISCOVERED);
 
     logPositionsAndVisitedCount(currentX, currentY);
   }
 
   private void headRight(char[][] labGrid) {
     do {
-      labGrid[currentX][currentY] = 'D';
+      labGrid[currentX][currentY] = DISCOVERED;
 
-      if (labGrid[currentX][currentY + 1] != 'D') {
+      if (labGrid[currentX][currentY + 1] != DISCOVERED) {
         visited++;
       }
 
@@ -119,19 +120,19 @@ public class GuardGallivant extends Solution {
       currentY++;
 
       if (currentY == labGrid[0].length - 1) {
-        labGrid[currentX][currentY] = 'D';
+        labGrid[currentX][currentY] = DISCOVERED;
         break;
       }
-    } while (labGrid[currentX][currentY + 1] == '.' || labGrid[currentX][currentY + 1] == 'D');
+    } while (labGrid[currentX][currentY + 1] == '.' || labGrid[currentX][currentY + 1] == DISCOVERED);
 
     logPositionsAndVisitedCount(currentX, currentY);
   }
 
   private void headDown(char[][] labGrid) {
     do {
-      labGrid[currentX][currentY] = 'D';
+      labGrid[currentX][currentY] = DISCOVERED;
 
-      if (labGrid[currentX + 1][currentY] != 'D') {
+      if (labGrid[currentX + 1][currentY] != DISCOVERED) {
         visited++;
       }
 
@@ -139,19 +140,19 @@ public class GuardGallivant extends Solution {
       currentX++;
 
       if (currentX == labGrid[0].length - 1) {
-        labGrid[currentX][currentY] = 'D';
+        labGrid[currentX][currentY] = DISCOVERED;
         break;
       }
-    } while (labGrid[currentX + 1][currentY] == '.' || labGrid[currentX + 1][currentY] == 'D');
+    } while (labGrid[currentX + 1][currentY] == '.' || labGrid[currentX + 1][currentY] == DISCOVERED);
 
     logPositionsAndVisitedCount(currentX, currentY);
   }
 
   private void headLeft(char[][] labGrid) {
     do {
-      labGrid[currentX][currentY] = 'D';
+      labGrid[currentX][currentY] = DISCOVERED;
 
-      if (labGrid[currentX][currentY - 1] != 'D') {
+      if (labGrid[currentX][currentY - 1] != DISCOVERED) {
         visited++;
       }
 
@@ -161,7 +162,7 @@ public class GuardGallivant extends Solution {
       if (currentY == 0 ) {
         break;
       }
-    } while (labGrid[currentX][currentY - 1] == '.' || labGrid[currentX][currentY - 1] == 'D');
+    } while (labGrid[currentX][currentY - 1] == '.' || labGrid[currentX][currentY - 1] == DISCOVERED);
 
     logPositionsAndVisitedCount(currentX, currentY);
   }
