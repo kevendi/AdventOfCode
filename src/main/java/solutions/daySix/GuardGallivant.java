@@ -6,8 +6,8 @@ import java.util.logging.Logger;
 
 public class GuardGallivant extends Solution {
 
-  private int currentX = 0;
-  private int currentY = 0;
+  private int guardRow = 0;
+  private int guardColumm = 0;
   private int visited = 1;
 
   private static final char GUARD_UP = '^';
@@ -22,8 +22,8 @@ public class GuardGallivant extends Solution {
   public SolutionAnswer run() {
     char[][] labGrid = getFileAs2dCharArray("src/main/resources/LabGrid.txt");
     Point startingPoint = getStartingPoint(labGrid);
-    this.currentX = startingPoint.x;
-    this.currentY = startingPoint.y;
+    this.guardRow = startingPoint.x;
+    this.guardColumm = startingPoint.y;
 
     int visitedCount = startCycleAndReturnPositionCount(labGrid);
 
@@ -52,35 +52,35 @@ public class GuardGallivant extends Solution {
     logger.info("Guard starting sweep");
     headUp(labGrid);
 
-    if (currentX == 0) {
+    if (guardRow == 0) {
       return visited;
     }
 
-    if (labGrid[currentX - 1][currentY] == OBSTACLE) {
+    if (labGrid[guardRow - 1][guardColumm] == OBSTACLE) {
       logger.info("Guard heading right");
       headRight(labGrid);
     }
 
-    if (currentY == labGrid[0].length - 1) {
+    if (guardColumm == labGrid[0].length - 1) {
       return visited;
     }
 
-    if (labGrid[currentX][currentY + 1] == OBSTACLE) {
+    if (labGrid[guardRow][guardColumm + 1] == OBSTACLE) {
       logger.info("Guard heading down");
       headDown(labGrid);
     }
 
-    if (currentX == labGrid[0].length - 1) {
+    if (guardRow == labGrid[0].length - 1) {
       return visited;
     }
 
-    if (labGrid[currentX + 1][currentY] == OBSTACLE) {
+    if (labGrid[guardRow + 1][guardColumm] == OBSTACLE) {
       logger.info("Guard heading left");
       headLeft(labGrid);
     }
 
-    if (currentY == 0) {
-      labGrid[currentX][currentY] = DISCOVERED;
+    if (guardColumm == 0) {
+      labGrid[guardRow][guardColumm] = DISCOVERED;
       return visited;
     }
 
@@ -89,83 +89,83 @@ public class GuardGallivant extends Solution {
 
   private void headUp(char[][] labGrid) {
     do {
-      labGrid[currentX][currentY] = DISCOVERED;
+      labGrid[guardRow][guardColumm] = DISCOVERED;
 
-      if (labGrid[currentX - 1][currentY] != DISCOVERED) {
+      if (labGrid[guardRow - 1][guardColumm] != DISCOVERED) {
         visited++;
       }
 
-      labGrid[currentX - 1][currentY] = GUARD_UP;
-      currentX--;
+      labGrid[guardRow - 1][guardColumm] = GUARD_UP;
+      guardRow--;
 
-      if (currentX == 0) {
+      if (guardRow == 0) {
         break;
       }
 
-    } while (labGrid[currentX - 1][currentY] == '.' || labGrid[currentX - 1][currentY] == DISCOVERED);
+    } while (labGrid[guardRow - 1][guardColumm] == '.' || labGrid[guardRow - 1][guardColumm] == DISCOVERED);
 
-    logPositionsAndVisitedCount(currentX, currentY);
+    logPositionsAndVisitedCount(guardRow, guardColumm);
   }
 
   private void headRight(char[][] labGrid) {
     do {
-      labGrid[currentX][currentY] = DISCOVERED;
+      labGrid[guardRow][guardColumm] = DISCOVERED;
 
-      if (labGrid[currentX][currentY + 1] != DISCOVERED) {
+      if (labGrid[guardRow][guardColumm + 1] != DISCOVERED) {
         visited++;
       }
 
-      labGrid[currentX][currentY + 1] = GUARD_RIGHT;
-      currentY++;
+      labGrid[guardRow][guardColumm + 1] = GUARD_RIGHT;
+      guardColumm++;
 
-      if (currentY == labGrid[0].length - 1) {
+      if (guardColumm == labGrid[0].length - 1) {
         break;
       }
-    } while (labGrid[currentX][currentY + 1] == '.' || labGrid[currentX][currentY + 1] == DISCOVERED);
+    } while (labGrid[guardRow][guardColumm + 1] == '.' || labGrid[guardRow][guardColumm + 1] == DISCOVERED);
 
-    logPositionsAndVisitedCount(currentX, currentY);
+    logPositionsAndVisitedCount(guardRow, guardColumm);
   }
 
   private void headDown(char[][] labGrid) {
     do {
-      labGrid[currentX][currentY] = DISCOVERED;
+      labGrid[guardRow][guardColumm] = DISCOVERED;
 
-      if (labGrid[currentX + 1][currentY] != DISCOVERED) {
+      if (labGrid[guardRow + 1][guardColumm] != DISCOVERED) {
         visited++;
       }
 
-      labGrid[currentX + 1][currentY] = GUARD_DOWN;
-      currentX++;
+      labGrid[guardRow + 1][guardColumm] = GUARD_DOWN;
+      guardRow++;
 
-      if (currentX == labGrid[0].length - 1) {
+      if (guardRow == labGrid[0].length - 1) {
         break;
       }
-    } while (labGrid[currentX + 1][currentY] == '.' || labGrid[currentX + 1][currentY] == DISCOVERED);
+    } while (labGrid[guardRow + 1][guardColumm] == '.' || labGrid[guardRow + 1][guardColumm] == DISCOVERED);
 
-    logPositionsAndVisitedCount(currentX, currentY);
+    logPositionsAndVisitedCount(guardRow, guardColumm);
   }
 
   private void headLeft(char[][] labGrid) {
     do {
-      labGrid[currentX][currentY] = DISCOVERED;
+      labGrid[guardRow][guardColumm] = DISCOVERED;
 
-      if (labGrid[currentX][currentY - 1] != DISCOVERED) {
+      if (labGrid[guardRow][guardColumm - 1] != DISCOVERED) {
         visited++;
       }
 
-      labGrid[currentX][currentY - 1] = GUARD_LEFT;
-      currentY--;
+      labGrid[guardRow][guardColumm - 1] = GUARD_LEFT;
+      guardColumm--;
 
-      if (currentY == 0 ) {
+      if (guardColumm == 0 ) {
         break;
       }
-    } while (labGrid[currentX][currentY - 1] == '.' || labGrid[currentX][currentY - 1] == DISCOVERED);
+    } while (labGrid[guardRow][guardColumm - 1] == '.' || labGrid[guardRow][guardColumm - 1] == DISCOVERED);
 
-    logPositionsAndVisitedCount(currentX, currentY);
+    logPositionsAndVisitedCount(guardRow, guardColumm);
   }
 
-  public void logPositionsAndVisitedCount(int currentX, int currentY) {
-    logger.info(String.valueOf(currentX));
+  public void logPositionsAndVisitedCount(int guardRow, int currentY) {
+    logger.info(String.valueOf(guardRow));
     logger.info(String.valueOf(currentY));
   }
 }
