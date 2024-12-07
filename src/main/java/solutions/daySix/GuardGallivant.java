@@ -94,7 +94,6 @@ public class GuardGallivant extends Solution {
       currentX--;
 
       if (currentX == 0) {
-        labGrid[currentX][currentY] = 'D';
         break;
       }
 
@@ -115,7 +114,6 @@ public class GuardGallivant extends Solution {
       currentY++;
 
       if (currentY == labGrid[0].length - 1) {
-        labGrid[currentX][currentY] = 'D';
         break;
       }
 
@@ -135,7 +133,6 @@ public class GuardGallivant extends Solution {
       currentX++;
 
       if (currentX == labGrid[0].length - 1) {
-        labGrid[currentX][currentY] = 'D';
         break;
       }
 
