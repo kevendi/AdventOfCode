@@ -99,7 +99,6 @@ public class GuardGallivant extends Solution {
       currentX--;
 
       if (currentX == 0) {
-        labGrid[currentX][currentY] = DISCOVERED;
         break;
       }
 
@@ -120,7 +119,6 @@ public class GuardGallivant extends Solution {
       currentY++;
 
       if (currentY == labGrid[0].length - 1) {
-        labGrid[currentX][currentY] = DISCOVERED;
         break;
       }
     } while (labGrid[currentX][currentY + 1] == '.' || labGrid[currentX][currentY + 1] == DISCOVERED);
@@ -140,7 +138,6 @@ public class GuardGallivant extends Solution {
       currentX++;
 
       if (currentX == labGrid[0].length - 1) {
-        labGrid[currentX][currentY] = DISCOVERED;
         break;
       }
     } while (labGrid[currentX + 1][currentY] == '.' || labGrid[currentX + 1][currentY] == DISCOVERED);
