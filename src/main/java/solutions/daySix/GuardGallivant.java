@@ -89,10 +89,6 @@ public class GuardGallivant extends Solution {
   private void headUp(char[][] labGrid) {
     do {
 
-      if (labGrid[currentX - 1][currentY] != 'D') {
-        visited++;
-      }
-
       labGrid[currentX][currentY] = 'D';
       labGrid[currentX - 1][currentY] = GUARD_UP;
       currentX--;
@@ -100,6 +96,10 @@ public class GuardGallivant extends Solution {
       if (currentX == 0) {
         labGrid[currentX][currentY] = 'D';
         break;
+      }
+
+      if (labGrid[currentX - 1][currentY] != 'D') {
+        visited++;
       }
 
     } while (labGrid[currentX - 1][currentY] == '.' || labGrid[currentX - 1][currentY] == 'D');
@@ -110,10 +110,6 @@ public class GuardGallivant extends Solution {
   private void headRight(char[][] labGrid) {
     do {
 
-      if (labGrid[currentX][currentY + 1] != 'D') {
-        visited++;
-      }
-
       labGrid[currentX][currentY] = 'D';
       labGrid[currentX][currentY + 1] = GUARD_RIGHT;
       currentY++;
@@ -122,6 +118,11 @@ public class GuardGallivant extends Solution {
         labGrid[currentX][currentY] = 'D';
         break;
       }
+
+      if (labGrid[currentX][currentY + 1] != 'D') {
+        visited++;
+      }
+
     } while (labGrid[currentX][currentY + 1] == '.' || labGrid[currentX][currentY + 1] == 'D');
 
     logPositionsAndVisitedCount(currentX, currentY);
@@ -129,11 +130,6 @@ public class GuardGallivant extends Solution {
 
   private void headDown(char[][] labGrid) {
     do {
-
-      if (labGrid[currentX + 1][currentY] != 'D') {
-        visited++;
-      }
-
       labGrid[currentX][currentY] = 'D';
       labGrid[currentX + 1][currentY] = GUARD_DOWN;
       currentX++;
@@ -142,6 +138,11 @@ public class GuardGallivant extends Solution {
         labGrid[currentX][currentY] = 'D';
         break;
       }
+
+      if (labGrid[currentX + 1][currentY] != 'D') {
+        visited++;
+      }
+
     } while (labGrid[currentX + 1][currentY] == '.' || labGrid[currentX + 1][currentY] == 'D');
 
     logPositionsAndVisitedCount(currentX, currentY);
@@ -150,10 +151,6 @@ public class GuardGallivant extends Solution {
   private void headLeft(char[][] labGrid) {
     do {
 
-      if (labGrid[currentX][currentY - 1] != 'D') {
-        visited++;
-      }
-
       labGrid[currentX][currentY] = 'D';
       labGrid[currentX][currentY - 1] = GUARD_LEFT;
       currentY--;
@@ -161,6 +158,11 @@ public class GuardGallivant extends Solution {
       if (currentY == 0 ) {
         break;
       }
+
+      if (labGrid[currentX][currentY - 1] != 'D') {
+        visited++;
+      }
+
     } while (labGrid[currentX][currentY - 1] == '.' || labGrid[currentX][currentY - 1] == 'D');
 
     logPositionsAndVisitedCount(currentX, currentY);
