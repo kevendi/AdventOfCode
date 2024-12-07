@@ -6,22 +6,36 @@ import java.util.logging.Logger;
 
 public class GuardGallivant extends Solution {
 
+  private int currentX = 0;
+  private int currentY = 0;
+  private int visited = 1;
+
+  private static final char GUARD_UP = '^';
+  private static final char GUARD_RIGHT = '>';
+  private static final char GUARD_LEFT = '<';
+  private static final char GUARD_DOWN = 'v';
+  private static final char OBSTACLE = '#';
+
   private static final Logger logger = Logger.getLogger(GuardGallivant.class.getName());
 
   public SolutionAnswer run() {
     char[][] labGrid = getFileAs2dCharArray("src/main/resources/LabGrid.txt");
     Point startingPoint = getStartingPoint(labGrid);
-    int visitedPositions = getVisitedPositions(startingPoint, labGrid);
-    return new SolutionAnswer(String.valueOf(visitedPositions));
+    this.currentX = startingPoint.x;
+    this.currentY = startingPoint.y;
+
+    int visitedCount = startCycleAndReturnPositionCount(labGrid);
+
+    return new SolutionAnswer(String.valueOf(visitedCount));
   }
 
   public Point getStartingPoint(char[][] labGrid) {
 
-    int rowCoordinate = 0;
+    int rowCoordinate = -1;
 
     for (char[] labRow : labGrid) {
       rowCoordinate++;
-      int columnCoordinate = 0;
+      int columnCoordinate = -1;
       for (char labSquare : labRow) {
         columnCoordinate++;
         if (labSquare == '^') {
@@ -33,80 +47,127 @@ public class GuardGallivant extends Solution {
     return new Point(0, 0);
   }
 
-  public int getVisitedPositions(Point startingPoint, char[][] labGrid) {
-    int visited = 1;
+  private int startCycleAndReturnPositionCount(char[][] labGrid) {
+    logger.info("Guard starting sweep");
+    headUp(labGrid);
 
-    int currentX = startingPoint.x;
-    int currentY = startingPoint.y;
-
-    char guardUp = labGrid[currentX][currentY];
-    char guardDown = 'v';
-    char guardRight = '>';
-    char guardLeft = '<';
-
-    char obstacle = '#';
-
-    logPositionsAndVisitedCount(currentX, currentY, visited);
-    logger.info("Guard heading up");
-
-    do {
-      // keep heading up while next char up is a valid space
-      labGrid[currentX][currentY + 1] = guardUp;
-      currentY++;
-      visited++;
-    } while (labGrid[currentX][currentY + 1] == '.');
-
-    logPositionsAndVisitedCount(currentX, currentY, visited);
-    logger.info("Guard heading right");
-
-    if (labGrid[currentX][currentY + 1] == obstacle) {
-      // head right if space up is an obstacle
-      do {
-        // head right as long as next space right is a valid space
-        labGrid[currentX + 1][currentY] = guardRight;
-        currentX++;
-        visited++;
-      } while (labGrid[currentX + 1][currentY] == '.');
-    } else {
+    if (currentX == 0) {
       return visited;
     }
 
-    logPositionsAndVisitedCount(currentX, currentY, visited);
-    logger.info("Guard heading down");
+    if (labGrid[currentX - 1][currentY] == OBSTACLE) {
+      logger.info("Guard heading right");
+      headRight(labGrid);
+    }
 
-    if (labGrid[currentX + 1][currentY] == obstacle) {
-      // head down if space right is an obstacle
-      do {
-        // head down as long as next space down is a valid space
-        labGrid[currentX][currentY - 1] = guardDown;
-        currentY--;
-        visited++;
-      } while (labGrid[currentX][currentY - 1] == '.');
-    } else {
+    if (currentY == labGrid[0].length - 1) {
       return visited;
     }
 
-    logPositionsAndVisitedCount(currentX, currentY, visited);
-    logger.info("Guard heading left");
+    if (labGrid[currentX][currentY + 1] == OBSTACLE) {
+      logger.info("Guard heading down");
+      headDown(labGrid);
+    }
 
-    if (labGrid[currentX][currentY - 1] == obstacle) {
-      // if next space down is an obstacle head left
-      do {
-        // head left as long as next space left is a valid space
-        labGrid[currentX - 1][currentY] = guardLeft;
-        currentX--;
-        visited++;
-      } while (labGrid[currentX - 1][currentY] == '.');
-    } else {
+    if (currentX == labGrid[0].length - 1) {
       return visited;
     }
-    logPositionsAndVisitedCount(currentX, currentY, visited);
-    return visited;
+
+    if (labGrid[currentX + 1][currentY] == OBSTACLE) {
+      logger.info("Guard heading left");
+      headLeft(labGrid);
+    }
+
+    if (currentY == 0) {
+      labGrid[currentX][currentY] = 'D';
+      return visited;
+    }
+
+    return startCycleAndReturnPositionCount(labGrid);
   }
 
-  public void logPositionsAndVisitedCount(int currentX, int currentY, int visited) {
+  private void headUp(char[][] labGrid) {
+    do {
+
+      if (labGrid[currentX - 1][currentY] != 'D') {
+        visited++;
+      }
+
+      labGrid[currentX][currentY] = 'D';
+      labGrid[currentX - 1][currentY] = GUARD_UP;
+      currentX--;
+
+      if (currentX == 0) {
+        labGrid[currentX][currentY] = 'D';
+        break;
+      }
+
+    } while (labGrid[currentX - 1][currentY] == '.' || labGrid[currentX - 1][currentY] == 'D');
+
+    logPositionsAndVisitedCount(currentX, currentY);
+  }
+
+  private void headRight(char[][] labGrid) {
+    do {
+
+      if (labGrid[currentX][currentY + 1] != 'D') {
+        visited++;
+      }
+
+      labGrid[currentX][currentY] = 'D';
+      labGrid[currentX][currentY + 1] = GUARD_RIGHT;
+      currentY++;
+
+      if (currentY == labGrid[0].length - 1) {
+        labGrid[currentX][currentY] = 'D';
+        break;
+      }
+    } while (labGrid[currentX][currentY + 1] == '.' || labGrid[currentX][currentY + 1] == 'D');
+
+    logPositionsAndVisitedCount(currentX, currentY);
+  }
+
+  private void headDown(char[][] labGrid) {
+    do {
+
+      if (labGrid[currentX + 1][currentY] != 'D') {
+        visited++;
+      }
+
+      labGrid[currentX][currentY] = 'D';
+      labGrid[currentX + 1][currentY] = GUARD_DOWN;
+      currentX++;
+
+      if (currentX == labGrid[0].length - 1) {
+        labGrid[currentX][currentY] = 'D';
+        break;
+      }
+    } while (labGrid[currentX + 1][currentY] == '.' || labGrid[currentX + 1][currentY] == 'D');
+
+    logPositionsAndVisitedCount(currentX, currentY);
+  }
+
+  private void headLeft(char[][] labGrid) {
+    do {
+
+      if (labGrid[currentX][currentY - 1] != 'D') {
+        visited++;
+      }
+
+      labGrid[currentX][currentY] = 'D';
+      labGrid[currentX][currentY - 1] = GUARD_LEFT;
+      currentY--;
+
+      if (currentY == 0 ) {
+        break;
+      }
+    } while (labGrid[currentX][currentY - 1] == '.' || labGrid[currentX][currentY - 1] == 'D');
+
+    logPositionsAndVisitedCount(currentX, currentY);
+  }
+
+  public void logPositionsAndVisitedCount(int currentX, int currentY) {
     logger.info(String.valueOf(currentX));
     logger.info(String.valueOf(currentY));
-    logger.info(String.valueOf(visited));
   }
 }
