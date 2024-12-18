@@ -1,13 +1,13 @@
 package solutions.dayOne;
 
-import solutions.common.Solution;
+import solutions.common.Task;
 
 import java.util.List;
 
-public class HistorianHysteria extends Solution {
+public class HistorianHysteria extends Task {
     @Override
-    public SolutionAnswer run() {
+    public TaskSolution run() {
         List<int[]> locationPairs = getLocationPairsFromFile("src/main/resources/HistorianList.txt");
-        return new SolutionAnswer("Not An Answer");
+        return new TaskSolution("Not An Answer");
     }
 }

@@ -1,10 +1,11 @@
 package solutions.daySix;
 
-import solutions.common.Solution;
+import solutions.common.Task;
+
 import java.awt.Point;
 import java.util.logging.Logger;
 
-public class GuardGallivant extends Solution {
+public class GuardGallivant extends Task {
 
   private int guardRow = 0;
   private int guardColumm = 0;
@@ -19,7 +20,7 @@ public class GuardGallivant extends Solution {
 
   private static final Logger logger = Logger.getLogger(GuardGallivant.class.getName());
 
-  public SolutionAnswer run() {
+  public TaskSolution run() {
     char[][] labGrid = getFileAs2dCharArray("src/main/resources/LabGrid.txt");
     Point startingPoint = getStartingPoint(labGrid);
     this.guardRow = startingPoint.x;
@@ -27,7 +28,7 @@ public class GuardGallivant extends Solution {
 
     int visitedCount = startCycleAndReturnPositionCount(labGrid);
 
-    return new SolutionAnswer(String.valueOf(visitedCount));
+    return new TaskSolution(String.valueOf(visitedCount));
   }
 
   public Point getStartingPoint(char[][] labGrid) {

@@ -1,6 +1,6 @@
 package solutions.common;
 
-import solutions.common.Solution.SolutionAnswer;
+import solutions.common.Task.TaskSolution;
 import solutions.dayOne.HistorianHysteria;
 import solutions.daySix.GuardGallivant;
 
@@ -14,11 +14,12 @@ public class Main {
 
     // TODO - 18/12/24 - Read in task name via CMD line
     String taskNameToRun = "HistorianHysteria";
-    SolutionAnswer solutionAnswer = getSolutionAnswerToTask(taskNameToRun);
+
+    TaskSolution solutionAnswer = getSolutionAnswerToTask(taskNameToRun);
     logger.info(solutionAnswer.answer());
   }
 
-  private static SolutionAnswer getSolutionAnswerToTask(String taskName) {
+  private static TaskSolution getSolutionAnswerToTask(String taskName) {
       return switch (taskName) {
           case "GuardGallivant" -> {
               GuardGallivant guardGallivant = new GuardGallivant();
@@ -31,9 +32,4 @@ public class Main {
           default -> throw new IllegalStateException("Unexpected task name supplied: " + taskName);
       };
   }
-
-
-
-
-
 }

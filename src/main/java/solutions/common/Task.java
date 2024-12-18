@@ -12,13 +12,13 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public abstract class Solution {
+public abstract class Task {
 
-  private final Logger log = Logger.getLogger(Solution.class.getName());
+  private final Logger log = Logger.getLogger(Task.class.getName());
 
-  public abstract SolutionAnswer run();
+  public abstract TaskSolution run();
 
-  public Class<? extends Solution> getType() {
+  public Class<? extends Task> getType() {
     return this.getClass();
   }
 
@@ -61,5 +61,5 @@ public abstract class Solution {
     return locationIds;
   }
 
-  public record SolutionAnswer(String answer) {}
+  public record TaskSolution(String answer) {}
 }
