@@ -10,6 +10,9 @@ public class Main {
 
   private static final Logger logger = Logger.getLogger(Main.class.getName());
 
+  private static final String DAY_ONE_FILE = "src/main/resources/HistorianList.txt";
+  private static final String DAY_SIX_FILE = "src/main/resources/GuardGallivant.txt";
+
   public static void main(String[] args) {
 
     // TODO - 18/12/24 - Read in task name via CMD line
@@ -23,11 +26,11 @@ public class Main {
       return switch (taskName) {
           case "GuardGallivant" -> {
               GuardGallivant guardGallivant = new GuardGallivant();
-              yield guardGallivant.run();
+              yield guardGallivant.run(DAY_SIX_FILE);
           }
           case "HistorianHysteria" -> {
               HistorianHysteria historianHysteria = new HistorianHysteria();
-              yield historianHysteria.run();
+              yield historianHysteria.run(DAY_ONE_FILE);
           }
           default -> throw new IllegalStateException("Unexpected task name supplied: " + taskName);
       };

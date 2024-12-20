@@ -20,8 +20,8 @@ public class GuardGallivant extends Task {
 
   private static final Logger logger = Logger.getLogger(GuardGallivant.class.getName());
 
-  public TaskSolution run() {
-    char[][] labGrid = getFileAs2dCharArray("src/main/resources/LabGrid.txt");
+  public TaskSolution run(String fileName) {
+    char[][] labGrid = getFileAs2dCharArray(fileName);
     Point startingPoint = getStartingPoint(labGrid);
     this.guardRow = startingPoint.x;
     this.guardColumm = startingPoint.y;

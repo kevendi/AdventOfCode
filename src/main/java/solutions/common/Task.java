@@ -16,7 +16,7 @@ public abstract class Task {
 
   private final Logger log = Logger.getLogger(Task.class.getName());
 
-  public abstract TaskSolution run();
+  public abstract TaskSolution run(String fileName);
 
   public Class<? extends Task> getType() {
     return this.getClass();
@@ -41,8 +41,7 @@ public abstract class Task {
 
     List<int[]> locationIds = new ArrayList<>();
 
-    try {
-      Scanner sc = new Scanner(new File(pathToFile));
+    try (Scanner sc = new Scanner(new File(pathToFile))) {
 
       while (sc.hasNext()) {
         String nextLine = sc.nextLine();
