@@ -1,4 +1,4 @@
-package solutions.dayOne;
+package solutions;
 
 import solutions.common.Task;
 
