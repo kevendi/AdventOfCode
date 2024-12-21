@@ -4,9 +4,11 @@ import solutions.common.Task;
 import java.util.List;
 
 public class RedNosedReports extends Task {
+
   @Override
   public TaskSolution run(String fileName) {
     List<int[]> reports = getFileAs2dIntArray(fileName);
+
     int ascendingSafeReports = (int) reports.stream().filter(this::ascendingReportIsSafe).count();
     int descendingSafeReports = (int) reports.stream().filter(this::descendingReportIsSafe).count();
 

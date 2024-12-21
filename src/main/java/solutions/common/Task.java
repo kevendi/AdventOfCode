@@ -33,6 +33,7 @@ public abstract class Task {
 
   public List<int[]> getFileAs2dIntArray(String pathToFile) {
     List<String> reportLines = getFileLines(pathToFile);
+
     List<int[]> reports = new ArrayList<>();
     reportLines.forEach(f -> reports.add(getIntArray(f)));
     return reports;
@@ -58,11 +59,9 @@ public abstract class Task {
   }
 
   public List<int[]> getLocationPairsFromFile(String pathToFile) {
-
     List<int[]> locationIds = new ArrayList<>();
 
     try (Scanner sc = new Scanner(new File(pathToFile))) {
-
       while (sc.hasNext()) {
         String nextLine = sc.nextLine();
         String[] locationIdPair = nextLine.split("   ");
@@ -72,7 +71,6 @@ public abstract class Task {
 
         locationIds.add(pair);
       }
-
     } catch (FileNotFoundException e) {
       log.info("Exception occurred during reading of file resource");
     }
