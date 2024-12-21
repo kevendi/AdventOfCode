@@ -17,7 +17,6 @@ public class Main {
 
   public static void main(String[] args) {
 
-    // TODO - 18/12/24 - Read in task name via CMD line
     String taskNameToRun = "RedNosedReports";
 
     TaskSolution solutionAnswer = getSolutionAnswerToTask(taskNameToRun);
